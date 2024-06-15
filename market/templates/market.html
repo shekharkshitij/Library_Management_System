@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}
+<h1 style="text-align: center;">Library Page</h1>
+{% endblock %}
+{% block content %}
+<div class="row" style="margin-top:20px; margin-left:20px">
+   <div class="col-8">
+      <h2>Available Books in the ArtHub</h2>
+      {% if not current_user.is_admin %}
+      <p>Click on one of the books to start issuing</p>
+      {% endif %}
+      <br>
+      {% for category in all_categories %}
+      <div class="row">
+         <div class="col-md-12">
+            <h3>{{ category }}</h3>
+            <table class="table table-hover table-dark">
+               <thead>
+                  <tr>
+                     <th scope="col">ID</th>
+                     <th scope="col">Name</th>
+                     <th scope="col">Barcode</th>
+                     <th scope="col">Price</th>
+                     <th scope="col">Options</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  {% for item in items_by_category[category] %}
+                  {% include 'includes/items_modals.html' %}
+                  <tr>
+                     <td>{{ item.id }}</td>
+                     <td>{{ item.name }}</td>
+                     <td>{{ item.barcode }}</td>
+                     <td>{{ item.price }}$</td>
+                     <td>
+                        <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+                        {% if current_user.is_admin %}
+                        <form action="/delete_book/{{ item.id }}" method="POST">
+                           <button type="submit" class="btn btn-outline btn-danger">Delete Book</button>
+                        </form>
+                        {% endif %}
+                        {% if not current_user.is_admin %}
+                        <button class="btn btn-outline btn-success" data-toggle="modal" data-target="#Modal-PurchaseConfirm-{{ item.id }}">Issue this book</button>
+                        {% endif %}
+                     </td>
+                  </tr>
+                  {% endfor %}
+               </tbody>
+            </table>
+         </div>
+      </div>
+      {% endfor %}
+   </div>
+   {% if not current_user.is_admin %}
+   <div class="col-4">
+      <h2>Owned Books</h2>
+      <p>Click on submit book to submit the book to the Library</p>
+      <br>
+      <div class="row">
+         {% for owned_item in owned_items %}
+         {% include 'includes/owned_items_modals.html' %}
+         <div class="col-md-6">
+            <div style="margin-bottom: 5px" class="card text-center bg-dark">
+               <div class="card-body">
+                  <h5 class="card-title">{{ owned_item.name }}</h5>
+                  <button type="button" class="btn btn-outline-danger" style="margin-bottom: 5px" data-toggle="modal" data-target="#Modal-SellingConfirm-{{ owned_item.id }}">
+                  Submit this Book
+                  </button>
+                  <p class="card-text"><strong>This book's price is {{ owned_item.price }}$</strong></p>
+               </div>
+            </div>
+         </div>
+         {% endfor %}
+      </div>
+   </div>
+   {% endif %}
+</div>
+{% endblock %}

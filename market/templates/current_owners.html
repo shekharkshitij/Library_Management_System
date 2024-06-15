@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}
+    <h1 style="text-align: center;background:#ccc;">Current Owners of the Books</h1>
+{% endblock %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        th, td {
+            background: #333;
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #333;
+            background-color: #f2f2f2;
+        }
+        td button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        td button:hover {
+            background-color: #45a049;
+        }
+        td{
+            background: #333;
+        }
+    </style>
+    <table>
+        <thead>
+            <tr>
+                <th style=background:black;>Book Name</th>
+                <th style=background:black;>Current Owner</th>
+                <th style=background:black;>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.owned_user.username if item.owned_user else "Available" }}</td>
+                <td>
+                    {% if item.owned_user %}
+                    <form action="/remove_owner/{{ item.id }}" method="POST">
+                        <button type="submit">Remove Owner</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

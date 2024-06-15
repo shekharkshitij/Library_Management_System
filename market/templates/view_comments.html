@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+    <h1 style="text-align: center;background:#ccc;">View Comments</h1>
+{% endblock %}
+{% block content %}
+<style>
+    h1{
+        color:black;
+    }
+    li{
+        color:darkblue;
+    }
+</style>
+    <div class="container mt-5">
+        <h2 class="mb-4">Comments</h2>
+        <ul class="list-group">
+            {% for comment in comments %}
+                <li class="list-group-item">
+                    <b><div>{{ comment.text }}</div></b>
+                    <small>Posted by {{ comment.user.username }} at {{ comment.timestamp }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}
+    <h1 style="text-align: center;background:#ccc;">View Feedbacks</h1>
+{% endblock %}
+{% block content %}
+    <style>
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        h2{
+            color:white;
+            text-align: center;
+        }
+        .feedback-separator {
+        border: 1px solid #ccc;
+        margin: 10px 0;
+        }
+
+    </style>
+    <div class="container">
+        <h2>All Feedbacks</h2>
+        <br>
+        <br>
+        <ul>
+            {% for feedback in feedbacks %}
+                <li>
+                    <p>User: {{ feedback.user.username }}, Book: {{ feedback.item.name }}</p>
+                    <p>Feedback: {{ feedback.feedback_text }}</p>
+                </li>
+                <hr class="feedback-separator">
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Found</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(170, 18, 10, 0.425);
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+        .book-info {
+            width: 50%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .book-info ul {
+            list-style: none;
+            padding: 0;
+        }
+        .book-info li {
+            margin-bottom: 10px;
+        }
+        .book-info li strong {
+            color: #007bff;
+        }
+        @media screen and (max-width: 768px) {
+            .book-info {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body style="background-color:rgba(228, 65, 19, 0.82);">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url_for('market_page') }}">Go Back</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <h1>Book Found</h1>
+    <div class="book-info">
+        <p>The book <strong>{{ book.name }}</strong> is found.</p>
+        <p>Details:</p>
+        <ul>
+            <li><strong>Name:</strong> {{ book.name }}</li>
+            <li><strong>Price:</strong> {{ book.price }}</li>
+            <li><strong>Description:</strong> {{ book.description }}</li>
+            <li><strong>Category:</strong> {{ book.category }}</li>
+
+            <!-- Add more details as needed -->
+        </ul>
+    </div>
+</body>
+</html>
